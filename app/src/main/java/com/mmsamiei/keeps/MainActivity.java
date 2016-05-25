@@ -43,7 +43,8 @@ public class MainActivity extends Activity{
             if (resultCode == RESULT_OK) {
                 String title = data.getExtras().getString("title");
                 String note = data.getExtras().getString("note");
-                adapter.setNewItem(title,note);
+                int color = data.getExtras().getInt("color");
+                adapter.setNewItem(title,note,color);
                 adapter.notifyDataSetChanged();
             }
         }

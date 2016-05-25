@@ -18,11 +18,13 @@ public class NoteListAdapter extends ArrayAdapter {
     public NoteListAdapter(Context context, int resource) {
         super(context, resource);
     }
-    public void setNewItem(String title,String desc){
+    public void setNewItem(String title,String desc,int col){
         NoteTable item  = new NoteTable();
         item.title=title;
         item.description=desc;
+        item.color=col;
         data.add(item);
+
     }
     @Override
     public int getCount() {
@@ -37,9 +39,9 @@ public class NoteListAdapter extends ArrayAdapter {
 
         View root=inflater.inflate(R.layout.note_list_item,null,false);
         if(position%2==0)
-            root.setBackgroundColor(Color.WHITE);
+            root.setBackgroundColor(data.get(position).color);
         else
-            root.setBackgroundColor(Color.GRAY);
+            root.setBackgroundColor(data.get(position).color);
         TextView desc = (TextView) root.findViewById(R.id.description);
         TextView title = (TextView) root.findViewById(R.id.title_txt);
 

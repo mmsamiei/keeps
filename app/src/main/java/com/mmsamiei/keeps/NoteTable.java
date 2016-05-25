@@ -6,4 +6,5 @@ package com.mmsamiei.keeps;
 public class NoteTable {
     String title;
     String description;
+    int color;
 }
