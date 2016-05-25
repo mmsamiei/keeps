@@ -23,8 +23,6 @@ public class ColorDialog extends Activity {
         purple = (Button) findViewById(R.id.btn_purplebtn);
         yellow = (Button) findViewById(R.id.btn_yellowbtn);
         gray = (Button) findViewById(R.id.btn_graybtn);
-
-
         red.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
