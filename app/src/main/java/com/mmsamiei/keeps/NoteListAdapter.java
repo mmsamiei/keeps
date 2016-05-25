@@ -38,10 +38,7 @@ public class NoteListAdapter extends ArrayAdapter {
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
         View root=inflater.inflate(R.layout.note_list_item,null,false);
-        if(position%2==0)
-            root.setBackgroundColor(data.get(position).color);
-        else
-            root.setBackgroundColor(data.get(position).color);
+        root.setBackgroundColor(data.get(position).color);
         TextView desc = (TextView) root.findViewById(R.id.description);
         TextView title = (TextView) root.findViewById(R.id.title_txt);
 

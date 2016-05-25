@@ -52,6 +52,6 @@
         android:layout_height="wrap_content"
         android:text="Login"
         android:id="@+id/login_btn"
-        android:background="@color/white"
+        android:background="@drawable/drawable_button_background"
         android:layout_gravity="center_horizontal" />
 </LinearLayout>

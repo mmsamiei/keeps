@@ -18,7 +18,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="یادداشت جدید"
-        android:background="@color/white"
+        android:background="@drawable/drawable_button_background"
         android:textSize="30sp"/>
 
     <ListView

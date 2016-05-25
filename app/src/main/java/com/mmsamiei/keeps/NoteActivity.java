@@ -19,11 +19,13 @@ public class NoteActivity extends Activity {
     private TextView title,note;
     private ImageView color;
     int noteColor;
+    private View root;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.ac_note);
+        root=findViewById(R.id.note_root_view);
         title = (TextView)findViewById(R.id.title_txt);
         note = (TextView) findViewById(R.id.note_txt);
         color = (ImageView) findViewById(R.id.pallete);
@@ -45,7 +47,9 @@ public class NoteActivity extends Activity {
             if(resultCode==RESULT_OK){
                 noteColor = data.getExtras().getInt("selectedColor");
             }
+            root.setBackgroundColor(noteColor);
         }
+
         Log.d("color",Integer.toString(noteColor));
         super.onActivityResult(requestCode, resultCode, data);
     }
@@ -56,7 +60,10 @@ public class NoteActivity extends Activity {
         resultIntent.putExtra("title",title.getText().toString());
         resultIntent.putExtra("note",note.getText().toString());
         resultIntent.putExtra("color",noteColor);
-        setResult(RESULT_OK,resultIntent);
+        if(title.getText().toString().equals("") && note.getText().toString().equals("") )
+            setResult(RESULT_CANCELED,resultIntent);
+        else
+            setResult(RESULT_OK,resultIntent);
         finish();
     }
 }
