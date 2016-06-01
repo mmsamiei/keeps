@@ -2,6 +2,7 @@ package com.mmsamiei.keeps;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -18,7 +19,13 @@ public class MainActivity extends Activity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.ac_main);
-        String username = getIntent().getExtras().getString("USER_NAME");
+        SharedPreferences prefs = getSharedPreferences(Constants.PREFS_NAME, 0);
+        String username ;
+        try {
+            username= getIntent().getExtras().getString("USER_NAME");
+        }catch (Exception e){
+            username = prefs.getString(Constants.KEY_USER, "Default");
+        }
         TextView wcText = (TextView) findViewById(R.id.wc_text);
         wcText.setText("خوش آمدید " + username);
         Button newNote = (Button) findViewById(R.id.new_note);

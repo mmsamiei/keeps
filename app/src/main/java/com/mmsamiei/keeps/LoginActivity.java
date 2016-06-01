@@ -2,6 +2,7 @@ package com.mmsamiei.keeps;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -29,6 +30,9 @@ public class LoginActivity extends Activity {
                     intent.putExtra("USER_NAME",username_edt.getText().toString());
                     startActivity(intent);
                     Toast.makeText(LoginActivity.this,"ورود با موفقیت",Toast.LENGTH_LONG);
+                    SharedPreferences prefs = getSharedPreferences("prefs",0);
+                    prefs.edit().putBoolean("IS_LOGGED_IN",true).apply();
+                    finish();
                 }
                 else {
 
