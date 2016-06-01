@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 /**
  * Created by Win2 on 5/24/2016.
@@ -18,6 +19,7 @@ import android.widget.TextView;
 public class NoteActivity extends Activity {
     private TextView title,note;
     private ImageView color;
+    private ImageView backArrow;
     int noteColor;
     private View root;
 
@@ -29,7 +31,9 @@ public class NoteActivity extends Activity {
         title = (TextView)findViewById(R.id.title_txt);
         note = (TextView) findViewById(R.id.note_txt);
         color = (ImageView) findViewById(R.id.pallete);
+        backArrow = (ImageView) findViewById(R.id.back_arrow);
         noteColor= Color.WHITE;
+
         color.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -37,6 +41,21 @@ public class NoteActivity extends Activity {
                 startActivityForResult(intent,2);
             }
         });
+        backArrow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent resultIntent = new Intent();
+                resultIntent.putExtra("title",title.getText().toString());
+                resultIntent.putExtra("note",note.getText().toString());
+                resultIntent.putExtra("color",noteColor);
+                if(title.getText().toString().equals("") && note.getText().toString().equals("") )
+                    setResult(RESULT_CANCELED,resultIntent);
+                else
+                    setResult(RESULT_OK,resultIntent);
+                finish();
+            }
+        });
+
     }
 
 
