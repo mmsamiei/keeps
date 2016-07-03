@@ -3,6 +3,8 @@ package com.mmsamiei.keeps;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -14,11 +16,13 @@ import android.widget.TextView;
  */
 public class MainActivity extends Activity{
     private NoteListAdapter adapter;
-
+    private SQLiteDatabase mydb;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mydb = openOrCreateDatabase(Constants.DATABASE_NAME,MODE_PRIVATE,null);
+        mydb.execSQL("Create table if not exists notes(title varchar(64) ,color int,description varchar(128))");
         setContentView(R.layout.ac_main);
         SharedPreferences prefs = getSharedPreferences(Constants.PREFS_NAME, 0);
         String username ;
@@ -42,6 +46,7 @@ public class MainActivity extends Activity{
         ListView list = (ListView) findViewById(R.id.listView);
         adapter = new NoteListAdapter(this, android.R.layout.simple_list_item_1);
         list.setAdapter(adapter);
+        updateAdapter();
     }
 
     @Override
@@ -50,12 +55,30 @@ public class MainActivity extends Activity{
         if (requestCode == 1) {
             if (resultCode == RESULT_OK) {
                 String title = data.getExtras().getString("title");
-                String note = data.getExtras().getString("note");
+                String description = data.getExtras().getString("note");
                 int color = data.getExtras().getInt("color");
-                adapter.setNewItem(title,note,color);
+               mydb.execSQL("insert into notes  (title,color,description) values (' " + title + "','" + Integer.toString(color) +"','"+description +"');");
+               updateAdapter();
+               // adapter.setNewItem(title,description,color);
                 adapter.notifyDataSetChanged();
             }
         }
         super.onActivityResult(requestCode, resultCode, data);
+    }
+    private void updateAdapter(){
+        Cursor resultSet = mydb.rawQuery("Select * from notes",null);
+        resultSet.moveToFirst();
+
+        adapter.clean();
+        while (resultSet.moveToNext()){
+            String title;
+            String description;
+            int color;
+            title = resultSet.getString(resultSet.getColumnIndex("title"));
+            color = resultSet.getInt(resultSet.getColumnIndex("color"));
+            description =resultSet.getString(resultSet.getColumnIndex("description"));
+            adapter.setNewItem(title,description,color);
+        }
+
     }
 }

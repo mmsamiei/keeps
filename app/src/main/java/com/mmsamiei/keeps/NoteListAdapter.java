@@ -26,6 +26,9 @@ public class NoteListAdapter extends ArrayAdapter {
         data.add(item);
 
     }
+    public void clean(){
+        data.clear();
+    }
     @Override
     public int getCount() {
         return data.size();
