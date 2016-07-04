@@ -56,6 +56,7 @@ public class MainActivity extends Activity{
         ListView list = (ListView) findViewById(R.id.listView);
         adapter = new NoteListAdapter(this, android.R.layout.simple_list_item_1);
         list.setAdapter(adapter);
+        //
         updateAdapter();
     }
 
