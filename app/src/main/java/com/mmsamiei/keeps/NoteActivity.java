@@ -1,6 +1,8 @@
 package com.mmsamiei.keeps;
 
 import android.app.Activity;
+import android.app.DialogFragment;
+import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.media.Image;
@@ -11,16 +13,24 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
+
+import java.sql.Time;
+import java.util.Calendar;
 
 /**
  * Created by Win2 on 5/24/2016.
  */
-public class NoteActivity extends Activity {
+public class NoteActivity extends Activity implements TimePickerFragment.onTimePass {
     private TextView title,note;
     private ImageView color;
     private ImageView backArrow;
+    private TextView select_date;
+    private TextView select_time;
     int noteColor;
+    int hour;
+    int minute;
     private View root;
 
     @Override
@@ -32,6 +42,8 @@ public class NoteActivity extends Activity {
         note = (TextView) findViewById(R.id.note_txt);
         color = (ImageView) findViewById(R.id.pallete);
         backArrow = (ImageView) findViewById(R.id.back_arrow);
+        select_date = (TextView) findViewById(R.id.select_date);
+        select_time = (TextView) findViewById(R.id.select_time);
         noteColor= Color.WHITE;
 
         color.setOnClickListener(new View.OnClickListener() {
@@ -41,6 +53,22 @@ public class NoteActivity extends Activity {
                 startActivityForResult(intent,2);
             }
         });
+
+        select_time.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DialogFragment newFragment = new TimePickerFragment();
+                newFragment.show(getFragmentManager(), "timePicker");
+            }
+        });
+        select_date.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DialogFragment newFragment = new DatePickerFragment();
+                newFragment.show(getFragmentManager(),"DatePicker");
+            }
+        });
+
         backArrow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -56,6 +84,7 @@ public class NoteActivity extends Activity {
             }
         });
 
+
     }
 
 
@@ -69,7 +98,15 @@ public class NoteActivity extends Activity {
             root.setBackgroundColor(noteColor);
         }
 
+        if(requestCode==3){
+            if(resultCode==RESULT_OK){
+                hour = data.getExtras().getInt("hour");
+            }
+        }
+
+
         Log.d("color",Integer.toString(noteColor));
+        Log.d("time",Integer.toString(hour));
         super.onActivityResult(requestCode, resultCode, data);
     }
 
@@ -84,5 +121,10 @@ public class NoteActivity extends Activity {
         else
             setResult(RESULT_OK,resultIntent);
         finish();
+    }
+
+    @Override
+    public void onTimePass(String data) {
+        Log.d("LOGG",data);
     }
 }
