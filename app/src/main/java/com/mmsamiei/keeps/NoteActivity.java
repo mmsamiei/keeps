@@ -22,15 +22,15 @@ import java.util.Calendar;
 /**
  * Created by Win2 on 5/24/2016.
  */
-public class NoteActivity extends Activity implements TimePickerFragment.onTimePass {
+public class NoteActivity extends Activity implements TimePickerFragment.onTimePass,DatePickerFragment.onDatePass {
     private TextView title,note;
     private ImageView color;
     private ImageView backArrow;
     private TextView select_date;
     private TextView select_time;
     int noteColor;
-    int hour;
-    int minute;
+    String time;
+    String date;
     private View root;
 
     @Override
@@ -72,15 +72,7 @@ public class NoteActivity extends Activity implements TimePickerFragment.onTimeP
         backArrow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent resultIntent = new Intent();
-                resultIntent.putExtra("title",title.getText().toString());
-                resultIntent.putExtra("note",note.getText().toString());
-                resultIntent.putExtra("color",noteColor);
-                if(title.getText().toString().equals("") && note.getText().toString().equals("") )
-                    setResult(RESULT_CANCELED,resultIntent);
-                else
-                    setResult(RESULT_OK,resultIntent);
-                finish();
+                onBackPressed();
             }
         });
 
@@ -98,15 +90,9 @@ public class NoteActivity extends Activity implements TimePickerFragment.onTimeP
             root.setBackgroundColor(noteColor);
         }
 
-        if(requestCode==3){
-            if(resultCode==RESULT_OK){
-                hour = data.getExtras().getInt("hour");
-            }
-        }
 
 
-        Log.d("color",Integer.toString(noteColor));
-        Log.d("time",Integer.toString(hour));
+
         super.onActivityResult(requestCode, resultCode, data);
     }
 
@@ -116,6 +102,8 @@ public class NoteActivity extends Activity implements TimePickerFragment.onTimeP
         resultIntent.putExtra("title",title.getText().toString());
         resultIntent.putExtra("note",note.getText().toString());
         resultIntent.putExtra("color",noteColor);
+        resultIntent.putExtra("time",time);
+        resultIntent.putExtra("date",date);
         if(title.getText().toString().equals("") && note.getText().toString().equals("") )
             setResult(RESULT_CANCELED,resultIntent);
         else
@@ -125,6 +113,13 @@ public class NoteActivity extends Activity implements TimePickerFragment.onTimeP
 
     @Override
     public void onTimePass(String data) {
-        Log.d("LOGG",data);
+        time=data;
+        select_time.setText(time);
+    }
+
+    @Override
+    public void onDatePass(String data) {
+        date=data;
+        select_date.setText(date);
     }
 }

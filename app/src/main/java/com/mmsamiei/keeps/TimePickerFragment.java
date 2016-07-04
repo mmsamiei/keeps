@@ -43,7 +43,6 @@ public class TimePickerFragment extends DialogFragment implements TimePickerDial
 
     @Override
     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-        Intent intent = new Intent();
         String s= Integer.toString(hourOfDay)+":"+Integer.toString(minute);
         dataPasser.onTimePass(s);
     }

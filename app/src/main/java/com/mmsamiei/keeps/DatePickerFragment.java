@@ -1,5 +1,6 @@
 package com.mmsamiei.keeps;
 
+import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
@@ -12,6 +13,18 @@ import java.util.Calendar;
  * Created by Win2 on 7/4/2016.
  */
 public class DatePickerFragment extends DialogFragment implements DatePickerDialog.OnDateSetListener {
+
+    public interface onDatePass {
+        public void onDatePass(String data);
+    }
+    onDatePass dataPasser;
+
+    @Override
+    public void onAttach(Activity a) {
+        super.onAttach(a);
+        dataPasser =(onDatePass) a;
+    }
+
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         // Use the current date as the default date in the picker
@@ -25,6 +38,7 @@ public class DatePickerFragment extends DialogFragment implements DatePickerDial
     }
     @Override
     public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-
+        String s = Integer.toString(year) + "/" + Integer.toString(monthOfYear)+"/"+Integer.toString(dayOfMonth);
+        dataPasser.onDatePass(s);
     }
 }

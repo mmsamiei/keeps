@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
@@ -22,7 +23,7 @@ public class MainActivity extends Activity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mydb = openOrCreateDatabase(Constants.DATABASE_NAME,MODE_PRIVATE,null);
-        mydb.execSQL("Create table if not exists notes(title varchar(64) ,color int,description varchar(128))");
+        mydb.execSQL("Create table if not exists notes(title varchar(64) ,color int,description varchar(128),date varchar(16),time varchar(16) )");
         setContentView(R.layout.ac_main);
         SharedPreferences prefs = getSharedPreferences(Constants.PREFS_NAME, 0);
         String username ;
@@ -57,7 +58,9 @@ public class MainActivity extends Activity{
                 String title = data.getExtras().getString("title");
                 String description = data.getExtras().getString("note");
                 int color = data.getExtras().getInt("color");
-               mydb.execSQL("insert into notes  (title,color,description) values (' " + title + "','" + Integer.toString(color) +"','"+description +"');");
+                String date = data.getExtras().getString("date");
+                String time = data.getExtras().getString("time");
+               mydb.execSQL("insert into notes  (title,color,description,date,time) values (' " + title + "','" + Integer.toString(color) +"','"+description+"','"+date+"','"+time +"');");
                updateAdapter();
                // adapter.setNewItem(title,description,color);
                 adapter.notifyDataSetChanged();
