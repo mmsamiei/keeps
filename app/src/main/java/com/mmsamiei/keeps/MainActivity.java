@@ -73,6 +73,7 @@ public class MainActivity extends Activity{
         resultSet.moveToFirst();
 
         adapter.clean();
+        resultSet.moveToPrevious();
         while (resultSet.moveToNext()){
             String title;
             String description;
