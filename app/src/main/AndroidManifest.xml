@@ -21,6 +21,7 @@
         <activity
             android:name=".ColorDialog"
             android:theme="@android:style/Theme.Holo.Dialog"></activity>
+        <receiver android:name=".MyBroadcastReciver"></receiver>
 
 
         <uses-permission android:name="android.permission.INTERNET" />

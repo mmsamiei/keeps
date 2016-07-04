@@ -2,12 +2,14 @@ package com.mmsamiei.keeps;
 
 import android.app.Activity;
 import android.app.AlarmManager;
+import android.app.Notification;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.util.Log;
@@ -67,7 +69,8 @@ public class MainActivity extends Activity{
                 int color = data.getExtras().getInt("color");
                 String date = data.getExtras().getString("date");
                 String time = data.getExtras().getString("time");
-                createAlarm(date,time);
+                if(data!= null && time != null)
+                    createAlarm(date,time,title);
                mydb.execSQL("insert into notes  (title,color,description,date,time) values (' " + title + "','" + Integer.toString(color) +"','"+description+"','"+date+"','"+time +"');");
                updateAdapter();
                // adapter.setNewItem(title,description,color);
@@ -77,7 +80,7 @@ public class MainActivity extends Activity{
         super.onActivityResult(requestCode, resultCode, data);
     }
 
-    public boolean createAlarm(String date,String time){
+    public boolean createAlarm(String date,String time,String title){
 
         String[] s1 = date.split("/");
         String[] s2 = time.split(":");
@@ -95,15 +98,34 @@ public class MainActivity extends Activity{
         calendar.set(year,month,day,hour,minute);
 
 
+        Notification notification = getNotification(title);
 
         Intent intent = new Intent(this, MyBroadcastReciver.class);
+        intent.putExtra("Notification",notification);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(
-                this.getApplicationContext(), 234324243, intent, 0);
+                this.getApplicationContext(), 0, intent, 0);
         AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
         alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
 
 
         return true;
+    }
+
+    private Notification getNotification(String content) {
+        Notification.Builder builder = new Notification.Builder(this);
+        builder.setContentTitle("KEEPS NOTIFICATION");
+        builder.setContentText(content);
+
+
+        /* TODO
+        icon Picture
+         */
+
+        builder.setSmallIcon(R.drawable.notification_icon);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+            return builder.build();
+        }
+        return null;
     }
 
     private void updateAdapter(){
