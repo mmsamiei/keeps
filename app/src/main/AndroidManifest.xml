@@ -18,6 +18,7 @@
         <activity android:name=".LoginActivity" />
         <activity android:name=".MainActivity" />
         <activity android:name=".NoteActivity" />
+        <activity android:name=".SearchActivity"/>
         <activity
             android:name=".ColorDialog"
             android:theme="@android:style/Theme.Holo.Dialog"></activity>

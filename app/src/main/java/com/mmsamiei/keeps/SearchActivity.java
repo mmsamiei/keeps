@@ -1,0 +1,58 @@
+package com.mmsamiei.keeps;
+
+import android.app.Activity;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ListView;
+
+/**
+ * Created by Win2 on 7/6/2016.
+ */
+    public class SearchActivity extends Activity {
+    private NoteListAdapter adapter;
+    private SQLiteDatabase mydb;
+    private Button goButton;
+    private EditText searchEdt;
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        mydb = openOrCreateDatabase(Constants.DATABASE_NAME,MODE_PRIVATE,null);
+        setContentView(R.layout.ac_search);
+       ListView list = (ListView) findViewById(R.id.SearchlistView);
+        adapter = new NoteListAdapter(this, android.R.layout.simple_list_item_1);
+        list.setAdapter(adapter);
+        goButton = (Button) findViewById(R.id.GO_button);
+        searchEdt = (EditText) findViewById(R.id.Search_edt);
+        goButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                update(searchEdt.getText().toString());
+            }
+        });
+    }
+    public void update(String word){
+
+        Cursor resultSet = mydb.rawQuery("Select * from notes where title like '%"+word+"%' or " +
+                "description like '%"+word+"%' ",null);
+        resultSet.moveToFirst();
+
+        adapter.clean();
+        resultSet.moveToPrevious();
+        while (resultSet.moveToNext()){
+            String title;
+            String description;
+            int color;
+            title = resultSet.getString(resultSet.getColumnIndex("title"));
+            color = resultSet.getInt(resultSet.getColumnIndex("color"));
+            description =resultSet.getString(resultSet.getColumnIndex("description"));
+            adapter.setNewItem(title,description,color);
+        }
+        adapter.notifyDataSetChanged();
+
+    }
+}

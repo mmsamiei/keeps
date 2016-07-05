@@ -27,6 +27,7 @@ import java.util.Calendar;
 public class MainActivity extends Activity{
     private NoteListAdapter adapter;
     private SQLiteDatabase mydb;
+    private Button searchButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +59,16 @@ public class MainActivity extends Activity{
         list.setAdapter(adapter);
         //
         updateAdapter();
+
+        searchButton = (Button) findViewById(R.id.search_button);
+        searchButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this,SearchActivity.class);
+                startActivity(intent);
+            }
+        });
+
     }
 
     @Override

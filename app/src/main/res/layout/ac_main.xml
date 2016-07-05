@@ -13,13 +13,23 @@
         android:textColor="#111111"
         android:textSize="35sp" />
 
+
     <Button
         android:id="@+id/new_note"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="یادداشت جدید"
         android:background="@drawable/drawable_button_background"
-        android:textSize="30sp"/>
+        android:textSize="30sp"
+        android:layout_gravity="right" />
+
+    <Button
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="جستجو"
+        android:id="@+id/search_button"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/drawable_button_background"/>
 
     <ListView
         android:layout_width="match_parent"
