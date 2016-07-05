@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Toast;
 
 /**
  * Created by Win2 on 7/6/2016.
@@ -18,6 +19,7 @@ import android.widget.ListView;
     private SQLiteDatabase mydb;
     private Button goButton;
     private EditText searchEdt;
+    private Button back;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,6 +36,13 @@ import android.widget.ListView;
                 update(searchEdt.getText().toString());
             }
         });
+        back = (Button) findViewById(R.id.back_searchAc);
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
     public void update(String word){
 
@@ -42,6 +51,11 @@ import android.widget.ListView;
         resultSet.moveToFirst();
 
         adapter.clean();
+
+        if(resultSet.getCount()==0)
+            Toast.makeText(getApplicationContext(), "No Match found", Toast.LENGTH_LONG).show();
+
+
         resultSet.moveToPrevious();
         while (resultSet.moveToNext()){
             String title;
@@ -53,6 +67,5 @@ import android.widget.ListView;
             adapter.setNewItem(title,description,color);
         }
         adapter.notifyDataSetChanged();
-
     }
 }
