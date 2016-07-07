@@ -191,6 +191,7 @@ public class MainActivity extends Activity {
     private Notification getNotification(String content) {
         Notification.Builder builder = new Notification.Builder(this);
         builder.setContentTitle("KEEPS NOTIFICATION");
+        builder.setAutoCancel(true);
         builder.setContentText(content);
 
 
