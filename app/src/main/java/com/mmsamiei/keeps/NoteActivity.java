@@ -45,6 +45,8 @@ public class NoteActivity extends Activity implements TimePickerFragment.onTimeP
         select_date = (TextView) findViewById(R.id.select_date);
         select_time = (TextView) findViewById(R.id.select_time);
         noteColor= Color.WHITE;
+        time=null;
+        date=null;
 
         color.setOnClickListener(new View.OnClickListener() {
             @Override

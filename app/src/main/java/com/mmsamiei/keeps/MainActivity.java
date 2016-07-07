@@ -74,8 +74,8 @@ public class MainActivity extends Activity {
 
 
                 startActivityForResult(intent,2);
-              // mydb.execSQL("delete from notes where id="+adapter.data.get(position).id);
-               // mydb.execSQL("update notes set title='ali',description='iranii'  where id="+adapter.data.get(position).id);
+                // mydb.execSQL("delete from notes where id="+adapter.data.get(position).id);
+                // mydb.execSQL("update notes set title='ali',description='iranii'  where id="+adapter.data.get(position).id);
                 updateAdapter();
                 adapter.notifyDataSetChanged();
             }
@@ -100,18 +100,18 @@ public class MainActivity extends Activity {
                 String title = data.getExtras().getString("title");
                 String description = data.getExtras().getString("note");
                 int color = data.getExtras().getInt("color");
-                int id = data.getExtras().getInt("ID");
-                Log.d("LOO",Integer.toString(id));
+                int id;
                 String date = data.getExtras().getString("date");
                 String time = data.getExtras().getString("time");
-               mydb.execSQL("insert into notes  (title,color,description,date,time) values (' " + title + "','" + Integer.toString(color) +"','"+description+"','"+date+"','"+time +"');");
+                mydb.execSQL("insert into notes  (title,color,description,date,time) values (' " + title + "','" + Integer.toString(color) +"','"+description+"','"+date+"','"+time +"');");
                 Cursor c = mydb.rawQuery("select last_insert_rowid() as x ;",null);
                 c.moveToFirst();
-                 id =c.getInt(c.getColumnIndex("x"));
+                id =c.getInt(c.getColumnIndex("x"));
                 updateAdapter();
-                if(data!= null && time != null)
-                    createAlarm(id,date,time,title);
-               // adapter.setNewItem(title,description,color);
+                if(date != null && time != null) {
+                    Log.d("STAR","XXX");
+                    createAlarm(id, date, time, title);
+                }
                 adapter.notifyDataSetChanged();
             }
         }
@@ -123,8 +123,8 @@ public class MainActivity extends Activity {
                 int id = data.getExtras().getInt("ID");
                 String date = data.getExtras().getString("date");
                 String time = data.getExtras().getString("time");
-              //  if(data!= null && time != null)
-               //     createAlarm(id,date,time,title);
+                //  if(data!= null && time != null)
+                //     createAlarm(id,date,time,title);
                 mydb.execSQL("update notes set title='"+title+"',description='"+description+"',color="+color+"  where id="+id);                updateAdapter();
                 // adapter.setNewItem(title,description,color);
                 updateAdapter();

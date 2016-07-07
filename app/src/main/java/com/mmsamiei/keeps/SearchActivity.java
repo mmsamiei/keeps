@@ -14,7 +14,7 @@ import android.widget.Toast;
 /**
  * Created by Win2 on 7/6/2016.
  */
-    public class SearchActivity extends Activity {
+public class SearchActivity extends Activity {
     private NoteListAdapter adapter;
     private SQLiteDatabase mydb;
     private Button goButton;
@@ -25,7 +25,7 @@ import android.widget.Toast;
         super.onCreate(savedInstanceState);
         mydb = openOrCreateDatabase(Constants.DATABASE_NAME,MODE_PRIVATE,null);
         setContentView(R.layout.ac_search);
-       ListView list = (ListView) findViewById(R.id.SearchlistView);
+        ListView list = (ListView) findViewById(R.id.SearchlistView);
         adapter = new NoteListAdapter(this, android.R.layout.simple_list_item_1);
         list.setAdapter(adapter);
         goButton = (Button) findViewById(R.id.GO_button);
