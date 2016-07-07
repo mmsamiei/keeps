@@ -14,6 +14,7 @@ import android.os.Bundle;
 import android.os.SystemClock;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -24,7 +25,7 @@ import java.util.Calendar;
 /**
  * Created by Win2 on 5/24/2016.
  */
-public class MainActivity extends Activity{
+public class MainActivity extends Activity {
     private NoteListAdapter adapter;
     private SQLiteDatabase mydb;
     private Button searchButton;
@@ -33,7 +34,7 @@ public class MainActivity extends Activity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mydb = openOrCreateDatabase(Constants.DATABASE_NAME,MODE_PRIVATE,null);
-        mydb.execSQL("Create table if not exists notes(title varchar(64) ,color int,description varchar(128),date varchar(16),time varchar(16) )");
+        mydb.execSQL("Create table if not exists notes( id INTEGER PRIMARY KEY  , title varchar(64) ,color int,description varchar(128),date varchar(16),time varchar(16) )");
         setContentView(R.layout.ac_main);
         SharedPreferences prefs = getSharedPreferences(Constants.PREFS_NAME, 0);
         String username ;
@@ -54,11 +55,32 @@ public class MainActivity extends Activity{
         });
 
 
-        ListView list = (ListView) findViewById(R.id.listView);
+        final ListView list = (ListView) findViewById(R.id.listView);
         adapter = new NoteListAdapter(this, android.R.layout.simple_list_item_1);
         list.setAdapter(adapter);
         //
         updateAdapter();
+        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Log.d("LOGG",Integer.toString(position)+"XXX");
+                Log.d("IRAN",adapter.data.get(position).title);
+
+                Intent intent = new Intent(MainActivity.this,ModifyActivity.class);
+                intent.putExtra("OLD_TITLE",adapter.data.get(position).title);
+                intent.putExtra("OLD_DESCRIPTION",adapter.data.get(position).description);
+                intent.putExtra("OLD_COLOR",adapter.data.get(position).color);
+                intent.putExtra("ID",adapter.data.get(position).id);
+
+
+
+                startActivityForResult(intent,2);
+              // mydb.execSQL("delete from notes where id="+adapter.data.get(position).id);
+               // mydb.execSQL("update notes set title='ali',description='iranii'  where id="+adapter.data.get(position).id);
+                updateAdapter();
+                adapter.notifyDataSetChanged();
+            }
+        });
 
         searchButton = (Button) findViewById(R.id.search_button);
         searchButton.setOnClickListener(new View.OnClickListener() {
@@ -86,6 +108,21 @@ public class MainActivity extends Activity{
                mydb.execSQL("insert into notes  (title,color,description,date,time) values (' " + title + "','" + Integer.toString(color) +"','"+description+"','"+date+"','"+time +"');");
                updateAdapter();
                // adapter.setNewItem(title,description,color);
+                adapter.notifyDataSetChanged();
+            }
+        }
+        if (requestCode == 2) {
+            if (resultCode == RESULT_OK) {
+                String title = data.getExtras().getString("title");
+                String description = data.getExtras().getString("note");
+                int color = data.getExtras().getInt("color");
+                int id = data.getExtras().getInt("ID");
+                String date = data.getExtras().getString("date");
+                String time = data.getExtras().getString("time");
+                if(data!= null && time != null)
+                    createAlarm(date,time,title);
+                mydb.execSQL("update notes set title='"+title+"',description='"+description+"',color="+color+"  where id="+id);                updateAdapter();
+                // adapter.setNewItem(title,description,color);
                 adapter.notifyDataSetChanged();
             }
         }
@@ -147,14 +184,17 @@ public class MainActivity extends Activity{
         adapter.clean();
         resultSet.moveToPrevious();
         while (resultSet.moveToNext()){
+            int id;
             String title;
             String description;
             int color;
+            id = resultSet.getInt(resultSet.getColumnIndex("id"));
             title = resultSet.getString(resultSet.getColumnIndex("title"));
             color = resultSet.getInt(resultSet.getColumnIndex("color"));
             description =resultSet.getString(resultSet.getColumnIndex("description"));
-            adapter.setNewItem(title,description,color);
+            adapter.setNewItem(id,title,description,color);
         }
-
     }
+
+
 }

@@ -18,11 +18,12 @@ public class NoteListAdapter extends ArrayAdapter {
     public NoteListAdapter(Context context, int resource) {
         super(context, resource);
     }
-    public void setNewItem(String title,String desc,int col){
+    public void setNewItem(int id,String title,String desc,int col){
         NoteTable item  = new NoteTable();
         item.title=title;
         item.description=desc;
         item.color=col;
+        item.id=id;
         data.add(item);
 
     }

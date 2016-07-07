@@ -7,4 +7,5 @@ public class NoteTable {
     String title;
     String description;
     int color;
+    int id;
 }

@@ -58,13 +58,15 @@ import android.widget.Toast;
 
         resultSet.moveToPrevious();
         while (resultSet.moveToNext()){
+            int id;
             String title;
             String description;
             int color;
+            id = resultSet.getInt(resultSet.getColumnIndex("id"));
             title = resultSet.getString(resultSet.getColumnIndex("title"));
             color = resultSet.getInt(resultSet.getColumnIndex("color"));
             description =resultSet.getString(resultSet.getColumnIndex("description"));
-            adapter.setNewItem(title,description,color);
+            adapter.setNewItem(id,title,description,color);
         }
         adapter.notifyDataSetChanged();
     }

@@ -11,7 +11,7 @@ import android.widget.Button;
  * Created by Win2 on 5/25/2016.
  */
 public class ColorDialog extends Activity {
-    Button red,green,blue,purple,yellow,gray;
+    Button red,green,blue,purple,yellow,white;
     int color;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,7 +22,7 @@ public class ColorDialog extends Activity {
         blue = (Button) findViewById(R.id.btn_bluebtn);
         purple = (Button) findViewById(R.id.btn_purplebtn);
         yellow = (Button) findViewById(R.id.btn_yellowbtn);
-        gray = (Button) findViewById(R.id.btn_graybtn);
+        white = (Button) findViewById(R.id.btn_whitebtn);
         red.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -73,10 +73,10 @@ public class ColorDialog extends Activity {
                 finish();
             }
         });
-        gray.setOnClickListener(new View.OnClickListener() {
+        white.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                color = Color.parseColor("#808080");
+                color = Color.parseColor("#ffffff");
                 Intent resultIntent = new Intent();
                 resultIntent.putExtra("selectedColor",color);
                 setResult(RESULT_OK,resultIntent);
