@@ -11,6 +11,7 @@
         android:padding="10dp"
         android:text="عنوان"
         android:gravity="right"
+        android:textStyle="bold"
         android:id="@+id/title_txt" />
     <TextView
         android:padding="10dp"

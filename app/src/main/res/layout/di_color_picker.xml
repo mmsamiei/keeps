@@ -53,8 +53,8 @@
         <Button
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:background="@color/gray"
-            android:id="@+id/btn_graybtn"
+            android:background="@color/white"
+            android:id="@+id/btn_whitebtn"
             android:layout_weight="1" />
     </LinearLayout>
 
