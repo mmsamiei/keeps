@@ -15,14 +15,16 @@ public class MyBroadcastReciver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
+        int id;
+        id=intent.getExtras().getInt("ID");
         Toast.makeText(context, "Alarm....", Toast.LENGTH_LONG).show();
-        Log.d("LOGG","Notification");
+        Log.d("LOOO",Integer.toString(id));
 
 
         NotificationManager notificationManager = (NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);
 
         Notification notification = intent.getParcelableExtra("Notification");
-        notificationManager.notify(37, notification);
+        notificationManager.notify(id, notification);
 
         /*TODO
 

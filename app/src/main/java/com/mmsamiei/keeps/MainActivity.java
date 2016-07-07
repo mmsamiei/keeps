@@ -63,8 +63,7 @@ public class MainActivity extends Activity {
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Log.d("LOGG",Integer.toString(position)+"XXX");
-                Log.d("IRAN",adapter.data.get(position).title);
+
 
                 Intent intent = new Intent(MainActivity.this,ModifyActivity.class);
                 intent.putExtra("OLD_TITLE",adapter.data.get(position).title);
@@ -101,12 +100,17 @@ public class MainActivity extends Activity {
                 String title = data.getExtras().getString("title");
                 String description = data.getExtras().getString("note");
                 int color = data.getExtras().getInt("color");
+                int id = data.getExtras().getInt("ID");
+                Log.d("LOO",Integer.toString(id));
                 String date = data.getExtras().getString("date");
                 String time = data.getExtras().getString("time");
-                if(data!= null && time != null)
-                    createAlarm(date,time,title);
                mydb.execSQL("insert into notes  (title,color,description,date,time) values (' " + title + "','" + Integer.toString(color) +"','"+description+"','"+date+"','"+time +"');");
-               updateAdapter();
+                Cursor c = mydb.rawQuery("select last_insert_rowid() as x ;",null);
+                c.moveToFirst();
+                 id =c.getInt(c.getColumnIndex("x"));
+                updateAdapter();
+                if(data!= null && time != null)
+                    createAlarm(id,date,time,title);
                // adapter.setNewItem(title,description,color);
                 adapter.notifyDataSetChanged();
             }
@@ -119,17 +123,26 @@ public class MainActivity extends Activity {
                 int id = data.getExtras().getInt("ID");
                 String date = data.getExtras().getString("date");
                 String time = data.getExtras().getString("time");
-                if(data!= null && time != null)
-                    createAlarm(date,time,title);
+              //  if(data!= null && time != null)
+               //     createAlarm(id,date,time,title);
                 mydb.execSQL("update notes set title='"+title+"',description='"+description+"',color="+color+"  where id="+id);                updateAdapter();
                 // adapter.setNewItem(title,description,color);
+                updateAdapter();
                 adapter.notifyDataSetChanged();
             }
+            if(resultCode==99){
+                int id = data.getExtras().getInt("ID");
+                mydb.execSQL("delete from notes  where id="+id);
+                deleteAlarm(id);
+                updateAdapter();
+                adapter.notifyDataSetChanged();
+            }
+
         }
         super.onActivityResult(requestCode, resultCode, data);
     }
 
-    public boolean createAlarm(String date,String time,String title){
+    public boolean createAlarm(int id,String date,String time,String title){
 
         String[] s1 = date.split("/");
         String[] s2 = time.split(":");
@@ -151,13 +164,28 @@ public class MainActivity extends Activity {
 
         Intent intent = new Intent(this, MyBroadcastReciver.class);
         intent.putExtra("Notification",notification);
+        intent.putExtra("ID",id);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(
-                this.getApplicationContext(), 0, intent, 0);
+                this.getApplicationContext(), id, intent, 0);
         AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
         alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
 
-
         return true;
+    }
+
+
+    public boolean deleteAlarm(int id){
+        try{
+            Intent intent = new Intent(this, MyBroadcastReciver.class);
+            PendingIntent pendingIntent = PendingIntent.getBroadcast(this.getApplicationContext(), id, intent,PendingIntent.FLAG_UPDATE_CURRENT);
+            AlarmManager am=(AlarmManager)this.getApplicationContext().getSystemService(Context.ALARM_SERVICE);
+            am.cancel(pendingIntent);
+            return  true;
+        }catch (Exception e){
+            e.printStackTrace();
+            return false;
+        }
+
     }
 
     private Notification getNotification(String content) {
