@@ -3,12 +3,16 @@ package com.mmsamiei.keeps;
 import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.Notification;
+import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Color;
+import android.media.RingtoneManager;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.SystemClock;
@@ -29,6 +33,7 @@ public class MainActivity extends Activity {
     private NoteListAdapter adapter;
     private SQLiteDatabase mydb;
     private Button searchButton;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -166,7 +171,7 @@ public class MainActivity extends Activity {
         intent.putExtra("Notification",notification);
         intent.putExtra("ID",id);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(
-                this.getApplicationContext(), id, intent, 0);
+                this.getApplicationContext(), id, intent, PendingIntent.FLAG_UPDATE_CURRENT);
         AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
         alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
 
@@ -177,9 +182,10 @@ public class MainActivity extends Activity {
     public boolean deleteAlarm(int id){
         try{
             Intent intent = new Intent(this, MyBroadcastReciver.class);
-            PendingIntent pendingIntent = PendingIntent.getBroadcast(this.getApplicationContext(), id, intent,PendingIntent.FLAG_UPDATE_CURRENT);
+            PendingIntent pendingIntent = PendingIntent.getBroadcast(this.getApplicationContext(), id, intent,0);
             AlarmManager am=(AlarmManager)this.getApplicationContext().getSystemService(Context.ALARM_SERVICE);
             am.cancel(pendingIntent);
+            Log.d("TAG","true");
             return  true;
         }catch (Exception e){
             e.printStackTrace();
@@ -193,7 +199,11 @@ public class MainActivity extends Activity {
         builder.setContentTitle("KEEPS NOTIFICATION");
         builder.setAutoCancel(true);
         builder.setContentText(content);
-
+        builder.setLights(Color.BLUE, 500, 500);
+        long[] pattern = {500,500,500,500,500,500,500,500,500};
+        builder.setVibrate(pattern);
+        Uri alarmSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
+        builder.setSound(alarmSound);
 
         /* TODO
         icon Picture

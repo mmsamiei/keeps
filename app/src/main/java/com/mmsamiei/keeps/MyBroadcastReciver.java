@@ -22,9 +22,11 @@ public class MyBroadcastReciver extends BroadcastReceiver {
 
 
         NotificationManager notificationManager = (NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);
-
         Notification notification = intent.getParcelableExtra("Notification");
         notificationManager.notify(id, notification);
+
+
+
 
         /*TODO
 
