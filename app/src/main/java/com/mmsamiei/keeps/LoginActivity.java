@@ -25,7 +25,7 @@ public class LoginActivity extends Activity {
         btn_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(username_edt.getText().toString().equalsIgnoreCase("admin") && password_edt.getText().toString().equalsIgnoreCase("1376")){
+                if(username_edt.getText().toString().equalsIgnoreCase("admin") && password_edt.getText().toString().equalsIgnoreCase("1234")){
                     Intent intent = new Intent(LoginActivity.this,MainActivity.class);
                     intent.putExtra("USER_NAME",username_edt.getText().toString());
                     startActivity(intent);

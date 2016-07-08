@@ -27,9 +27,9 @@ public class Splashscreen extends Activity {
     private void StartAnimations() {
         Animation anim = AnimationUtils.loadAnimation(this, R.anim.alpha);
         anim.reset();
-        LinearLayout l=(LinearLayout) findViewById(R.id.lin_lay);
-        l.clearAnimation();
-        l.startAnimation(anim);
+//        LinearLayout l=(LinearLayout) findViewById(R.id.lin_lay);
+//        l.clearAnimation();
+//        l.startAnimation(anim);
 
         anim = AnimationUtils.loadAnimation(this, R.anim.translate);
         anim.reset();
@@ -37,17 +37,13 @@ public class Splashscreen extends Activity {
         iv.clearAnimation();
         iv.startAnimation(anim);
 
-        Animation anim2 = AnimationUtils.loadAnimation(this, R.anim.alpha);
+        Animation anim2 = AnimationUtils.loadAnimation(this, R.anim.translateback);
         anim2.reset();
         LinearLayout l2=(LinearLayout) findViewById(R.id.lin_lay);
         l2.clearAnimation();
-        l2.startAnimation(anim);
+        l2.startAnimation(anim2);
 
-        anim2 = AnimationUtils.loadAnimation(this, R.anim.translate);
-        anim2.reset();
-        ImageView iv2 = (ImageView) findViewById(R.id.imageView);
-        iv2.clearAnimation();
-        iv2.startAnimation(anim);
+
 
         splashTread = new Thread() {
             @Override
@@ -55,7 +51,7 @@ public class Splashscreen extends Activity {
                 try {
                     int waited = 0;
                     // Splash screen pause time
-                    while (waited < 5000) {
+                    while (waited < 4000) {
                         sleep(10);
                         waited += 10;
                     }

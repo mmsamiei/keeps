@@ -18,7 +18,6 @@ public class MyBroadcastReciver extends BroadcastReceiver {
         int id;
         id=intent.getExtras().getInt("ID");
         Toast.makeText(context, "Alarm....", Toast.LENGTH_LONG).show();
-        Log.d("LOOO",Integer.toString(id));
 
 
         NotificationManager notificationManager = (NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);
