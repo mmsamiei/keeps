@@ -124,17 +124,6 @@
 
     </LinearLayout>
 
-    TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
-        android:layout_marginTop="16dp"
-        android:gravity="right"
-        android:padding="8dp"
-        android:text="Edited 4:01 PM"
-        android:textColor="#b4b4b4"
-        android:textSize="13sp" />
 
     <TextView
     android:id="@+id/select_date"
