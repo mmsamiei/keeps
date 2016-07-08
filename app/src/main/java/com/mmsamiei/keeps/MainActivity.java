@@ -49,7 +49,7 @@ public class MainActivity extends Activity {
             username = prefs.getString(Constants.KEY_USER, "Default");
         }
         TextView wcText = (TextView) findViewById(R.id.wc_text);
-        wcText.setText("خوش آمدید " + username);
+        //wcText.setText("خوش آمدید " + username);
         Button newNote = (Button) findViewById(R.id.new_note);
         newNote.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -128,10 +128,9 @@ public class MainActivity extends Activity {
                 int id = data.getExtras().getInt("ID");
                 String date = data.getExtras().getString("date");
                 String time = data.getExtras().getString("time");
-                //  if(data!= null && time != null)
-                //     createAlarm(id,date,time,title);
-                mydb.execSQL("update notes set title='"+title+"',description='"+description+"',color="+color+"  where id="+id);                updateAdapter();
-                // adapter.setNewItem(title,description,color);
+                mydb.execSQL("update notes set title='"+title+"',description='"+description+"',color="+color+",time='"+time+"',date='"+date+"'  where id="+id);                updateAdapter();
+                deleteAlarm(id);
+                createAlarm(id,date,time,title);
                 updateAdapter();
                 adapter.notifyDataSetChanged();
             }
