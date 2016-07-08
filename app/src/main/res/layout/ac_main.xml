@@ -22,7 +22,6 @@
         android:background="@drawable/drawable_button_background"
         android:textSize="30sp"
         android:layout_gravity="right" />
-
     <Button
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"

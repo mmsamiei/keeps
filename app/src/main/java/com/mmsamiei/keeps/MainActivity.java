@@ -18,6 +18,7 @@ import android.os.Bundle;
 import android.os.SystemClock;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
@@ -40,6 +41,7 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         mydb = openOrCreateDatabase(Constants.DATABASE_NAME,MODE_PRIVATE,null);
         mydb.execSQL("Create table if not exists notes( id INTEGER PRIMARY KEY  , title varchar(64) ,color int,description varchar(128),date varchar(16),time varchar(16) )");
+        getWindow().requestFeature(Window.FEATURE_CONTENT_TRANSITIONS);
         setContentView(R.layout.ac_main);
         SharedPreferences prefs = getSharedPreferences(Constants.PREFS_NAME, 0);
         String username ;

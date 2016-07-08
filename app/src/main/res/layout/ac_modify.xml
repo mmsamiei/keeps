@@ -73,7 +73,9 @@
         android:textColor="#212121"
         android:textColorHint="#b4b4b4"
         android:textSize="20sp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:inputType=
+            "textCapSentences|textAutoCorrect"/>
 
     <EditText
         android:layout_width="match_parent"
@@ -88,7 +90,8 @@
         android:textColor="#212121"
         android:textColorHint="#b4b4b4"
         android:textSize="18sp"
-        android:textStyle="normal" />
+        android:textStyle="normal"
+        />
 
 
     <View
@@ -119,28 +122,9 @@
             android:scaleType="fitCenter"
             android:src="@drawable/ic_action_timer" />
 
-        <TextView
-        android:id="@+id/select_date"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="5dp"
-        android:text="select date"
-        android:textColor="#b4b4b4"
-        android:textSize="15sp"
-        android:textStyle="italic|bold" />
-        <TextView
-            android:id="@+id/select_time"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:text="select time"
-            android:textColor="#b4b4b4"
-            android:textSize="15sp"
-            android:textStyle="italic|bold" />
-
     </LinearLayout>
 
-    <TextView
+    TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="16dp"
@@ -151,5 +135,26 @@
         android:text="Edited 4:01 PM"
         android:textColor="#b4b4b4"
         android:textSize="13sp" />
+
+    <TextView
+    android:id="@+id/select_date"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="5dp"
+    android:text="select date"
+    android:textColor="#b4b4b4"
+    android:textSize="30sp"
+    android:textStyle="italic|bold" />
+
+    <TextView
+        android:id="@+id/select_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:text="select time"
+        android:textColor="#b4b4b4"
+        android:layout_marginTop="30dp"
+        android:textSize="30sp"
+        android:textStyle="italic|bold" />
 
 </LinearLayout>
