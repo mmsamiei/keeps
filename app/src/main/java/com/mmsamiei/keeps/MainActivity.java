@@ -130,7 +130,10 @@ public class MainActivity extends Activity {
                 String time = data.getExtras().getString("time");
                 mydb.execSQL("update notes set title='"+title+"',description='"+description+"',color="+color+",time='"+time+"',date='"+date+"'  where id="+id);                updateAdapter();
                 deleteAlarm(id);
-                createAlarm(id,date,time,title);
+                if(date != null && time != null) {
+                    Log.d("STAR","XXX");
+                    createAlarm(id, date, time, title);
+                }
                 updateAdapter();
                 adapter.notifyDataSetChanged();
             }
