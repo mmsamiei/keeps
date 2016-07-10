@@ -4,36 +4,44 @@
     android:orientation="vertical"
     android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/wc_text"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="خوش آمدید"
-        android:textColor="#111111"
-        android:textSize="35sp" />
 
-
-    <Button
-        android:id="@+id/new_note"
+    <LinearLayout
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="یادداشت جدید"
-        android:background="@drawable/drawable_button_background"
-        android:textSize="30sp"
-        android:layout_gravity="right" />
-    <Button
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="جستجو"
-        android:id="@+id/search_button"
-        android:layout_gravity="center_horizontal"
-        android:background="@drawable/drawable_button_background"/>
+        android:layout_height="wrap_content">
+        <Button
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="search"
+            android:id="@+id/search_button"
+            android:layout_gravity="left"
+            android:layout_weight="4"
+            android:layout_marginRight="5dp"
+            android:background="@drawable/drawable_button_background" />
+        <Button
+            android:id="@+id/new_note"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="+ add new note"
+            android:layout_marginLeft="5dp"
+            android:background="@drawable/drawable_button_background"
+            android:textSize="30sp"
+            android:layout_gravity="right"
+            android:layout_weight="1"/>
+
+    </LinearLayout>
 
     <ListView
+        android:layout_marginTop="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/listView"
-        android:layout_gravity="center_horizontal" />
+        android:layout_gravity="center_horizontal"
+        android:animateLayoutChanges="true"
+        android:smoothScrollbar="true"
+        android:scrollbarSize="@dimen/activity_horizontal_margin"
+        />
 
 </LinearLayout>

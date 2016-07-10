@@ -93,11 +93,11 @@
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
         android:layout_marginTop="50dp"
-        android:background="@color/white"/>
+        android:background="@color/gray"/>
 
     <LinearLayout
         android:id="@+id/reminder_layout"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="16dp"
         android:layout_marginTop="16dp"
@@ -113,31 +113,37 @@
             android:layout_marginLeft="16dp"
             android:adjustViewBounds="true"
             android:scaleType="fitCenter"
+            android:layout_gravity="center"
             android:src="@drawable/ic_action_timer" />
 
     </LinearLayout>
-
-
-
-    <TextView
-    android:id="@+id/select_date"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_marginLeft="0dp"
-    android:text="select date"
-    android:textColor="#b4b4b4"
-    android:textSize="30sp"
-    android:textStyle="italic|bold" />
-
-    <TextView
-        android:id="@+id/select_time"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="5dp"
-        android:text="select time"
-        android:textColor="#b4b4b4"
-        android:textSize="30sp"
-        android:layout_marginTop="30dp"
-        android:textStyle="italic|bold" />
+        android:orientation="horizontal">
+        <TextView
+            android:id="@+id/select_date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:text="select date"
+            android:textColor="#b4b4b4"
+            android:textSize="30sp"
+            android:textStyle=""
+            android:layout_weight="1"/>
+
+        <TextView
+            android:id="@+id/select_time"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:text="select time"
+            android:textColor="#b4b4b4"
+            android:textSize="30sp"
+            android:textStyle=""
+            android:layout_weight="1"
+            android:gravity="right"
+            android:layout_marginRight="5dp"/>
+    </LinearLayout>
 
 </LinearLayout>

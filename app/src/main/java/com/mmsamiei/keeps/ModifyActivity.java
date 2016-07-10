@@ -46,8 +46,8 @@ public class ModifyActivity extends Activity implements TimePickerFragment.onTim
         note = (TextView) findViewById(R.id.note_txt);
         color = (ImageView) findViewById(R.id.pallete);
         backArrow = (ImageView) findViewById(R.id.back_arrow);
-        select_date = (TextView) findViewById(R.id.select_date);
-        select_time = (TextView) findViewById(R.id.select_time);
+        select_date = (TextView) findViewById(R.id.modify_date);
+        select_time = (TextView) findViewById(R.id.modify_time);
         delete_img = (ImageView) findViewById(R.id.deleteIcon);
         noteColor= Color.WHITE;
 

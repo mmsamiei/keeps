@@ -50,7 +50,7 @@ public class MainActivity extends Activity {
         }catch (Exception e){
             username = prefs.getString(Constants.KEY_USER, "Default");
         }
-        TextView wcText = (TextView) findViewById(R.id.wc_text);
+        //TextView wcText = (TextView) findViewById(R.id.wc_text);
         //wcText.setText("خوش آمدید " + username);
         Button newNote = (Button) findViewById(R.id.new_note);
         newNote.setOnClickListener(new View.OnClickListener() {
